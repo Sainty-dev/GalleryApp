@@ -15,6 +15,7 @@ import {loadImages, filterImages} from '../redux/slices/gallerySlice';
 import ImageItem from '../components/ImageItem';
 import SearchBar from '../components/SearchBar';
 import {ImageBackground} from 'react-native';
+import {calculateColumns} from '../utils/Utils';
 
 const GalleryScreen = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -25,8 +26,8 @@ const GalleryScreen = () => {
   );
   const loading = useSelector((state: RootState) => state.gallery.loading);
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
-  const {width} = Dimensions.get('window');
-  const numColumns = Math.floor(width / 100);
+
+  const numColumns = calculateColumns();
   useEffect(() => {
     dispatch(loadImages(page));
   }, [dispatch, page]);
